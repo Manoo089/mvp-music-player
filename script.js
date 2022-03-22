@@ -2,11 +2,13 @@ const audioElement = document.querySelector("#track");
 const playBtn = document.querySelector("#play");
 const stopBtn = document.querySelector("#stop");
 const audio = document.querySelector("audio");
+const rangeTime = document.querySelector("#time-range");
 
 let isPlaying = true;
 
 playBtn.addEventListener("click", playPause);
 stopBtn.addEventListener("click", stopAudio);
+rangeTime.addEventListener("change", clickTimeline);
 
 function playPause() {
     if (isPlaying) {
@@ -49,11 +51,15 @@ function millisToMinutesAndSeconds(millis) {
     return `${minutes}:${seconds}`;
 }
 
-function timeRange() {
-    const timeRange = document.querySelector("#time-range");
-    timeRange.setAttribute("value", audioElement.currentTime);
-    timeRange.setAttribute("max", audioElement.duration);
-    timeRange.setAttribute("min", 0);
+function timeline(elem) {
+    elem.setAttribute("value", audioElement.currentTime);
+    elem.setAttribute("max", audioElement.duration);
+    elem.setAttribute("min", 0);
+    return elem;
+}
+
+function clickTimeline() {
+    audioElement.currentTime = rangeTime.value;
 }
 
 function getTitleOfFile(source) {
@@ -75,7 +81,7 @@ function render() {
 
     // render currentTime
     time.textContent = millisToMinutesAndSeconds(audioElement.currentTime);
-    timeRange();
+    timeline(rangeTime);
     requestAnimationFrame(render);
 }
 
