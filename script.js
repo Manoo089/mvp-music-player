@@ -48,6 +48,7 @@ function nextAudio() {
     }
     audio = new Audio(songs[trackIndex].src);
     isPlaying = true;
+    getCover();
     playPause();
 }
 
