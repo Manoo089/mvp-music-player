@@ -23,7 +23,7 @@ function playPause() {
 }
 
 function stopAudio() {
-    if (isPlaying === false) {
+    if (isPlaying === false || isPlaying === true) {
         playBtn.textContent = "Play";
 
         audioElement.pause();
