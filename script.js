@@ -1,25 +1,29 @@
 const audioElement = document.querySelector("#track");
 const playBtn = document.querySelector("#play");
 const stopBtn = document.querySelector("#stop");
-const audio = document.querySelector("audio");
+const nextBtn = document.querySelector("#next");
 const rangeTime = document.querySelector("#time-range");
 
+let audio = new Audio(audioElement.children[0].src);
 let isPlaying = true;
+let trackIndex = 0;
 
 playBtn.addEventListener("click", playPause);
 stopBtn.addEventListener("click", stopAudio);
+nextBtn.addEventListener("click", nextAudio);
 rangeTime.addEventListener("change", clickTimeline);
+console.log(audioElement.children);
 
 function playPause() {
     if (isPlaying) {
         playBtn.textContent = "Pause";
 
-        audioElement.play();
+        audio.play();
         isPlaying = false;
     } else {
         playBtn.textContent = "Resume";
 
-        audioElement.pause();
+        audio.pause();
         isPlaying = true;
     }
 }
@@ -28,10 +32,22 @@ function stopAudio() {
     if (isPlaying === false || isPlaying === true) {
         playBtn.textContent = "Play";
 
-        audioElement.pause();
-        audioElement.currentTime = 0;
+        audio.pause();
+        audio.currentTime = 0;
         isPlaying = true;
     }
+}
+
+function nextAudio() {
+    stopAudio();
+
+    trackIndex++;
+    if (trackIndex > audioElement.children.length - 1) {
+        trackIndex = 0;
+    }
+    audio = new Audio(audioElement.children[trackIndex].src);
+
+    playPause();
 }
 
 function endedAudio() {
@@ -80,7 +96,7 @@ function render() {
     title.textContent = getTitleOfFile(audio.src);
 
     // render currentTime
-    time.textContent = millisToMinutesAndSeconds(audioElement.currentTime);
+    time.textContent = millisToMinutesAndSeconds(audio.currentTime);
     timeline(rangeTime);
     requestAnimationFrame(render);
 }
