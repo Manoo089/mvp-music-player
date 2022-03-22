@@ -1,6 +1,7 @@
 const audioElement = document.querySelector("#track");
 const playBtn = document.querySelector("#play");
 const stopBtn = document.querySelector("#stop");
+const audio = document.querySelector("audio");
 
 let isPlaying = true;
 
@@ -55,8 +56,22 @@ function timeRange() {
     timeRange.setAttribute("min", 0);
 }
 
+function getTitleOfFile(source) {
+    let getIndexLastBackslash = source.lastIndexOf("/");
+    getIndexLastBackslash = getIndexLastBackslash + 1;
+    source = source
+        .slice(getIndexLastBackslash)
+        .replaceAll("%20", " ")
+        .replaceAll("-", " ");
+    return source;
+}
+
 function render() {
     const time = document.querySelector("#time");
+    const title = document.querySelector("#title");
+
+    // render Titel
+    title.textContent = getTitleOfFile(audio.src);
 
     // render currentTime
     time.textContent = millisToMinutesAndSeconds(audioElement.currentTime);
