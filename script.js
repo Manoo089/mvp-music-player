@@ -30,3 +30,24 @@ function stopAudio() {
         isPlaying = true;
     }
 }
+
+function millisToMinutesAndSeconds(millis) {
+    let minutes = Math.floor((millis % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
+    let seconds = Math.floor(millis % 60)
+        .toString()
+        .padStart(2, "0");
+
+    return `${minutes}:${seconds}`;
+}
+
+function render() {
+    const time = document.querySelector("#time");
+
+    // render currentTime
+    time.textContent = millisToMinutesAndSeconds(audioElement.currentTime);
+    requestAnimationFrame(render);
+}
+
+render();
