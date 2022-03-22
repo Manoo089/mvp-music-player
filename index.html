@@ -10,19 +10,20 @@
 </head>
 
 <body>
-    <audio id="track">
-      <source src="audio/into-the-red-trinity-main-version-02-17-1292.mp3" />
-      <source src="audio/soulig_V1.1.flac" />
-    </audio>
+    <audio id="track"></audio>
+
+    <div class="img-container">
+        <img id="cover" src="" />
+    </div>
 
     <p id="title"></p>
 
     <p id="time"></p>
-    <input type="range" id="time-range" min="0" /><br />
+    <input type="range" id="time-range" min="0" max="" value="0" /><br />
     <button id="play">Play</button>
     <button id="stop">Stop</button>
     <button id="next">Next</button>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>

@@ -1,17 +1,19 @@
+import { songs } from "./db.js";
+
 const audioElement = document.querySelector("#track");
 const playBtn = document.querySelector("#play");
 const stopBtn = document.querySelector("#stop");
 const nextBtn = document.querySelector("#next");
 const rangeTime = document.querySelector("#time-range");
 
-let audio = new Audio(audioElement.children[0].src);
+let audio = new Audio(songs[0].src);
 let isPlaying = true;
 let trackIndex = 0;
 
 playBtn.addEventListener("click", playPause);
 stopBtn.addEventListener("click", stopAudio);
 nextBtn.addEventListener("click", nextAudio);
-rangeTime.addEventListener("change", clickTimeline);
+rangeTime.addEventListener("click", clickTimeline);
 
 function playPause() {
     if (isPlaying) {
@@ -33,7 +35,6 @@ function stopAudio() {
 
         audio.pause();
         audio.currentTime = 0;
-        rangeTime.value = 0;
         isPlaying = true;
     }
 }
@@ -42,16 +43,16 @@ function nextAudio() {
     stopAudio();
 
     trackIndex++;
-    if (trackIndex > audioElement.children.length - 1) {
+    if (trackIndex > songs.length - 1) {
         trackIndex = 0;
     }
-    audio = new Audio(audioElement.children[trackIndex].src);
-
+    audio = new Audio(songs[trackIndex].src);
+    isPlaying = true;
     playPause();
 }
 
 function endedAudio() {
-    audioElement.addEventListener("ended", function() {
+    audio.addEventListener("ended", function() {
         stopAudio();
     });
 }
@@ -68,9 +69,8 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 function timeline(elem) {
-    elem.setAttribute("value", audioElement.currentTime);
-    elem.setAttribute("max", audioElement.duration);
-    elem.setAttribute("min", 0);
+    elem.max = audio.duration;
+    elem.setAttribute("value", audio.currentTime);
     return elem;
 }
 
@@ -88,6 +88,11 @@ function getTitleOfFile(source) {
     return source;
 }
 
+function getCover() {
+    const imgElement = document.querySelector("#cover");
+    imgElement.setAttribute("src", songs[trackIndex].cover);
+}
+
 function render() {
     const time = document.querySelector("#time");
     const title = document.querySelector("#title");
@@ -103,6 +108,7 @@ function render() {
 
 function handleInitial() {
     render();
+    getCover();
     endedAudio();
 }
 
