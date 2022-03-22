@@ -31,6 +31,12 @@ function stopAudio() {
     }
 }
 
+function endedAudio() {
+    audioElement.addEventListener("ended", function() {
+        stopAudio();
+    });
+}
+
 function millisToMinutesAndSeconds(millis) {
     let minutes = Math.floor((millis % 3600) / 60)
         .toString()
@@ -50,4 +56,9 @@ function render() {
     requestAnimationFrame(render);
 }
 
-render();
+function handleInitial() {
+    render();
+    endedAudio();
+}
+
+handleInitial();
