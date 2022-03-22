@@ -48,11 +48,19 @@ function millisToMinutesAndSeconds(millis) {
     return `${minutes}:${seconds}`;
 }
 
+function timeRange() {
+    const timeRange = document.querySelector("#time-range");
+    timeRange.setAttribute("value", audioElement.currentTime);
+    timeRange.setAttribute("max", audioElement.duration);
+    timeRange.setAttribute("min", 0);
+}
+
 function render() {
     const time = document.querySelector("#time");
 
     // render currentTime
     time.textContent = millisToMinutesAndSeconds(audioElement.currentTime);
+    timeRange();
     requestAnimationFrame(render);
 }
 
