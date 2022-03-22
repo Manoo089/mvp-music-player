@@ -33,6 +33,7 @@ function stopAudio() {
 
         audio.pause();
         audio.currentTime = 0;
+        rangeTime.value = 0;
         isPlaying = true;
     }
 }
