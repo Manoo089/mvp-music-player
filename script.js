@@ -12,7 +12,6 @@ playBtn.addEventListener("click", playPause);
 stopBtn.addEventListener("click", stopAudio);
 nextBtn.addEventListener("click", nextAudio);
 rangeTime.addEventListener("change", clickTimeline);
-console.log(audioElement.children);
 
 function playPause() {
     if (isPlaying) {
@@ -75,7 +74,7 @@ function timeline(elem) {
 }
 
 function clickTimeline() {
-    audioElement.currentTime = rangeTime.value;
+    audio.currentTime = rangeTime.value;
 }
 
 function getTitleOfFile(source) {
