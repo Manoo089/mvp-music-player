@@ -1,20 +1,32 @@
 const audioElement = document.querySelector("#track");
-const play = document.querySelector("#play");
+const playBtn = document.querySelector("#play");
+const stopBtn = document.querySelector("#stop");
 
 let isPlaying = true;
 
-play.addEventListener("click", playPause);
+playBtn.addEventListener("click", playPause);
+stopBtn.addEventListener("click", stopAudio);
 
 function playPause() {
     if (isPlaying) {
-        play.textContent = "Pause";
+        playBtn.textContent = "Pause";
 
         audioElement.play();
         isPlaying = false;
     } else {
-        play.textContent = "Resume";
+        playBtn.textContent = "Resume";
 
         audioElement.pause();
+        isPlaying = true;
+    }
+}
+
+function stopAudio() {
+    if (isPlaying === false) {
+        playBtn.textContent = "Play";
+
+        audioElement.pause();
+        audioElement.currentTime = 0;
         isPlaying = true;
     }
 }
