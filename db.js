@@ -2,14 +2,14 @@ export { songs };
 
 const songs = [{
         title: "Waterdrop",
-        artist: "Trinity",
+        artist: "Manoo & Shirin",
         cover: "https://cdn.musicvine.com/images/trinity-avatar-v1_8164557820960638.jpg",
-        src: "audio/Waterdrop_Final.flac",
+        src: "https://manoo089.ddns.net/site/music/Waterdrop_Final.flac",
     },
     {
-        title: "Soulig V1.1",
+        title: "Soulig",
         artist: "Manoo & Shirin",
-        cover: "",
-        src: "audio/soulig_V1.1.flac",
+        cover: "img/nocover.jpg",
+        src: "https://manoo089.ddns.net/site/music/Soulig_Neu.flac",
     },
 ];
