@@ -1,6 +1,5 @@
 import { songs } from "./db.js";
 
-const audioElement = document.querySelector("#track");
 const playBtn = document.querySelector("#play");
 const stopBtn = document.querySelector("#stop");
 const nextBtn = document.querySelector("#next");
@@ -14,6 +13,7 @@ playBtn.addEventListener("click", playPause);
 stopBtn.addEventListener("click", stopAudio);
 nextBtn.addEventListener("click", nextAudio);
 rangeTime.addEventListener("click", clickTimeline);
+audio.addEventListener("ended", endedAudio);
 
 function playPause() {
     if (isPlaying) {
@@ -30,13 +30,11 @@ function playPause() {
 }
 
 function stopAudio() {
-    if (isPlaying === false || isPlaying === true) {
-        playBtn.textContent = "Play";
+    playBtn.textContent = "Play";
 
-        audio.pause();
-        audio.currentTime = 0;
-        isPlaying = true;
-    }
+    audio.pause();
+    audio.currentTime = 0;
+    isPlaying = true;
 }
 
 function nextAudio() {
@@ -53,9 +51,7 @@ function nextAudio() {
 }
 
 function endedAudio() {
-    audio.addEventListener("ended", function() {
-        stopAudio();
-    });
+    nextAudio();
 }
 
 function millisToMinutesAndSeconds(millis) {
@@ -69,11 +65,11 @@ function millisToMinutesAndSeconds(millis) {
     return `${minutes}:${seconds}`;
 }
 
-function timeline(elem) {
-    elem.max = audio.duration;
-    elem.setAttribute("value", audio.currentTime);
-    return elem;
+function timeline() {
+    rangeTime.max = audio.duration;
+    rangeTime.value = audio.currentTime;
 }
+setInterval(timeline, 500);
 
 function clickTimeline() {
     audio.currentTime = rangeTime.value;
@@ -103,14 +99,12 @@ function render() {
 
     // render currentTime
     time.textContent = millisToMinutesAndSeconds(audio.currentTime);
-    timeline(rangeTime);
     requestAnimationFrame(render);
 }
 
 function handleInitial() {
     render();
     getCover();
-    endedAudio();
 }
 
 handleInitial();
