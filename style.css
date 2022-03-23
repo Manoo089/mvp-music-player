@@ -3,3 +3,66 @@
 *::after {
     box-sizing: border-box;
 }
+
+html {
+    height: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.music-player {
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.img-container {
+    line-height: 0;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    background-image: linear-gradient(to right, #8aedf6, #60a2f5);
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
+svg {
+    transform: scale(2);
+}
+
+#time-range,
+#time-range::-webkit-slider-runnable-track,
+#time-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+#time-range::-webkit-slider-runnable-track {
+    height: 3px;
+    background: linear-gradient(to right, #293043, #293043), #d7d7d7;
+    background-size: var(--background-size, 0%) 100%;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+}
+
+#time-range::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    margin-top: -6px;
+}

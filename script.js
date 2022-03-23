@@ -4,16 +4,36 @@ const playBtn = document.querySelector("#play");
 const stopBtn = document.querySelector("#stop");
 const nextBtn = document.querySelector("#next");
 const rangeTime = document.querySelector("#time-range");
+const slider = document.querySelector("input");
+const audioPlayer = document.querySelector(".music-player");
 
 let audio = new Audio(songs[0].src);
+console.log(audio.buffered);
+
 let isPlaying = true;
 let trackIndex = 0;
 
 playBtn.addEventListener("click", playPause);
 stopBtn.addEventListener("click", stopAudio);
 nextBtn.addEventListener("click", nextAudio);
-rangeTime.addEventListener("click", clickTimeline);
+slider.addEventListener("click", clickTimeline);
 audio.addEventListener("ended", endedAudio);
+slider.addEventListener("input", () => setBackgroundSize(slider));
+//audio.addEventListener("progress", displayBuffer);
+audio.addEventListener("loadedmetadata", () => {
+    render();
+    getCover();
+
+    //displayBuffer();
+});
+
+// function displayBuffer() {
+//     const buffer = Math.floor(audio.buffered.end(audio.buffered.length - 1));
+//     audioPlayer.style.setProperty(
+//         "'--buffered-width",
+//         `${(buffer / rangeTime.max) * 100}%`
+//     );
+// }
 
 function playPause() {
     if (isPlaying) {
@@ -66,13 +86,14 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 function timeline() {
-    rangeTime.max = audio.duration;
-    rangeTime.value = audio.currentTime;
+    slider.max = audio.duration;
+    slider.value = audio.currentTime;
+    setBackgroundSize(slider);
 }
 setInterval(timeline, 500);
 
 function clickTimeline() {
-    audio.currentTime = rangeTime.value;
+    audio.currentTime = slider.value;
 }
 
 function getTitleOfFile(source) {
@@ -102,9 +123,16 @@ function render() {
     requestAnimationFrame(render);
 }
 
-function handleInitial() {
-    render();
-    getCover();
+function setBackgroundSize(input) {
+    input.style.setProperty("--background-size", `${getBackgroundSize(input)}%`);
 }
 
-handleInitial();
+function getBackgroundSize(input) {
+    const min = +input.min || 0;
+    const max = +input.max || audio.duration;
+    const value = +input.value;
+
+    const size = ((value - min) / (max - min)) * 100;
+
+    return size;
+}
