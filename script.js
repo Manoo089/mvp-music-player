@@ -25,7 +25,7 @@ audio.addEventListener("ended", endedAudio);
 audio.addEventListener("loadedmetadata", () => {
     durationTime.textContent = millisToMinutesAndSeconds(audio.duration);
     render();
-    //getCover();
+    getCover();
 });
 
 function addFavourite() {
@@ -71,7 +71,7 @@ function nextAudio() {
     }
     audio = new Audio(songs[trackIndex].src);
     isPlaying = true;
-    //getCover();
+    getCover();
     playPause();
 }
 
@@ -112,8 +112,11 @@ function getTitleOfFile(source) {
 }
 
 function getCover() {
-    const imgElement = document.querySelector("img");
-    imgElement.setAttribute("src", songs[trackIndex].cover);
+    const imgElement = document.querySelector(".img-container");
+    imgElement.style.backgroundImage = `url(${songs[trackIndex].cover})`;
+    imgElement.style.backgroundSize = "cover";
+    imgElement.style.backgroundPosition = "center center";
+    imgElement.style.backgroundRepeat = "no-repeat";
 }
 
 function render() {
