@@ -12,9 +12,23 @@ html {
 }
 
 body {
-    height: 100%;
-    background: linear-gradient( to bottom, rgba(0, 0, 0, 0.8) 50%, rgba(240, 240, 240, 0.6));
     margin: 0;
+    height: 100%;
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+    background-size: 400% 400%;
+    animation: bg-animation 10s infinite ease-in-out;
+}
+
+@keyframes bg-animation {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -22,8 +36,6 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: none;
-        background-color: rgba(0, 0, 0, 0.8);
     }
 }
 
