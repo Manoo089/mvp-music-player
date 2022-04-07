@@ -10,6 +10,7 @@ import { play, stop, heart, heartFilled } from "./svgVariables.js";
 // Define Elements
 const playBtn = getElement("#play");
 const nextBtn = getElement("#next");
+const previousBtn = getElement("#back");
 const slider = getElement("input");
 const durationTime = getElement("#duration");
 const favBtn = getElement("#add-fav");
@@ -24,6 +25,7 @@ let trackIndex = 0;
 // Define Events
 playBtn.addEventListener("click", playPause);
 nextBtn.addEventListener("click", nextAudio);
+previousBtn.addEventListener("click", previousAudio);
 favBtn.addEventListener("click", addFavourite);
 menuBtn.addEventListener("click", menu);
 slider.addEventListener("click", clickTimeline);
@@ -76,6 +78,19 @@ function nextAudio() {
 
     trackIndex++;
     if (trackIndex > songs.length - 1) {
+        trackIndex = 0;
+    }
+    audio = new Audio(songs[trackIndex].src);
+    isPlaying = true;
+    getCover();
+    playPause();
+}
+
+function previousAudio() {
+    stopAudio();
+
+    trackIndex--;
+    if (trackIndex < songs.length - 1) {
         trackIndex = 0;
     }
     audio = new Audio(songs[trackIndex].src);
